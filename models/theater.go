@@ -1,6 +1,10 @@
 package models
 
-import "time"
+import (
+	"cinema-admin/db"
+	"errors"
+	"time"
+)
 
 // Theater ...
 type Theater struct {
@@ -15,4 +19,16 @@ type Theater struct {
 	District    string `json:"district,omitempty"`
 	Ward        string `json:"ward,omitempty"`
 	Street      string `json:"street,omitempty"`
+}
+
+// GetTheaterByID ...
+func GetTheaterByID(id string) (Theater, error) {
+	dbConn := db.GetDB()
+
+	theater := Theater{}
+	res := dbConn.Where("id = ?", id).Find(&theater)
+	if res.Error != nil {
+		return theater, errors.New("Data or data type is invalid")
+	}
+	return theater, nil
 }
