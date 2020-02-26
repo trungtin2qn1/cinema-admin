@@ -6,5 +6,6 @@ import (
 
 // GetTheaterInfoByID ...
 func GetTheaterInfoByID(c *gin.Context) {
+	//theaterID := c.Param("theater_id")
 
 }

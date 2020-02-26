@@ -2,6 +2,8 @@ package controller
 
 import (
 	"cinema-admin/models"
+	"cinema-admin/utils/jwt"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -45,8 +47,25 @@ func DeleteCookie(c *gin.Context) {
 	http.SetCookie(c.Writer, cookie)
 }
 
-//CheckAuthenticationToken ...
-func CheckAuthenticationToken(c *gin.Context) {
+//VerifyJWTToken ...
+func VerifyJWTToken(c *gin.Context) {
+	token := c.Request.Header.Get("Authorization")
+	if token == "" {
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+			"message": "Token can not be null",
+		})
+		return
+	}
+	rawToken := string(token[len("Tin "):])
+	userID, _, err := jwt.VerificationToken(rawToken)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+			"message": "Token is in valid",
+		})
+		return
+	}
+	fmt.Println(userID)
+	c.Set("user_id", userID)
 	c.Next()
 }
 

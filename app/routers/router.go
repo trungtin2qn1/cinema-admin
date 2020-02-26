@@ -3,6 +3,7 @@ package routers
 import (
 	"cinema-admin/admin/bindatafs"
 	controllerAuth "cinema-admin/controllers/auth"
+	controllerConsumer "cinema-admin/controllers/consumer"
 	controllerMovie "cinema-admin/controllers/movie"
 	controllerMovieSession "cinema-admin/controllers/moviesession"
 	controllerPayment "cinema-admin/controllers/payment"
@@ -33,11 +34,11 @@ func SetupRouter(mux *http.ServeMux) *gin.Engine {
 
 	api := router.Group("/apis")
 	{
-		api.POST("/login", controllerAuth.Login)
+		api.POST("/login", controllerConsumer.Login)
 
 		auth := api.Group("/auth")
 		{
-			auth.Use(controllerAuth.CheckAuthenticationToken)
+			auth.Use(controllerAuth.VerifyJWTToken)
 			auth.GET("/theater/:theater_id", controllerTheater.GetTheaterInfoByID)
 			auth.GET("/movie/:movie_id", controllerMovie.GetMovieInfoByID)
 			auth.GET("/theater/:theater_id/movie/:movie_id/movie-sessions",

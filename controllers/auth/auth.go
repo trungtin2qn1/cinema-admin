@@ -96,8 +96,3 @@ func PostLogin(c *gin.Context) {
 
 	c.Redirect(http.StatusSeeOther, "/admin")
 }
-
-// Login router handler for frontend
-func Login(c *gin.Context) {
-
-}

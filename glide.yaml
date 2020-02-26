@@ -1,0 +1,28 @@
+package: cinema-admin
+import:
+- package: github.com/containous/go-bindata
+  version: v1.0.0
+- package: github.com/gin-gonic/gin
+  version: v1.5.0
+- package: github.com/jinzhu/gorm
+  version: v1.9.12
+  subpackages:
+  - dialects/postgres
+- package: github.com/qor/admin
+  version: v1.1
+- package: github.com/qor/assetfs
+- package: github.com/qor/qor
+  version: v1.1
+  subpackages:
+  - resource
+- package: github.com/qor/roles
+  version: v1.1
+- package: github.com/qor/validations
+  version: v1.1
+- package: github.com/sirupsen/logrus
+  version: v1.4.2
+- package: golang.org/x/crypto
+  subpackages:
+  - bcrypt
+- package: gopkg.in/gormigrate.v1
+  version: v1.6.0
