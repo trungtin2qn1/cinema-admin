@@ -1,0 +1,7 @@
+version: '3'
+services:
+  adminer:
+    image: amd64/adminer
+    restart: always
+    ports:
+      - 7070:8080
