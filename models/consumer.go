@@ -8,16 +8,16 @@ import (
 
 //Consumer ...
 type Consumer struct {
-	ID        string `json:"id,omitempty"`
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	DeletedAt *time.Time
-	Email     string `json:"email,omitempty"`
-	Name      string `json:"name,omitempty"`
-	Phone     string `json:"phone,omitempty"`
-	Address   string `json:"address,omitempty"`
-	Password  string `json:"password,omitempty"`
-	Token     string `json:"token,omitempty" gorm:"-"`
+	ID        string     `json:"id,omitempty"`
+	CreatedAt time.Time  `json:"created_at,omitempty"`
+	UpdatedAt time.Time  `json:"-"`
+	DeletedAt *time.Time `json:"-"`
+	Email     string     `json:"email,omitempty"`
+	Name      string     `json:"name,omitempty"`
+	Phone     string     `json:"phone,omitempty"`
+	Address   string     `json:"address,omitempty"`
+	Password  string     `json:"-" form:"-"`
+	Token     string     `json:"token,omitempty" gorm:"-"`
 }
 
 // GetConsumerByEmail ...
@@ -29,6 +29,7 @@ func GetConsumerByEmail(email string) (Consumer, error) {
 	if res.Error != nil {
 		return consumer, errors.New("Data or data type is invalid")
 	}
+
 	return consumer, nil
 }
 

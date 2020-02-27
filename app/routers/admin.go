@@ -2,6 +2,7 @@ package routers
 
 import (
 	"cinema-admin/admin/bindatafs"
+	"cinema-admin/controllers/auth"
 	"cinema-admin/db"
 	"cinema-admin/models"
 	"cinema-admin/services"
@@ -17,6 +18,7 @@ func SetupAdmin() (*admin.Admin, *http.ServeMux) {
 	Admin := admin.New(&admin.AdminConfig{
 		SiteName: "Cinema Admin",
 		DB:       dbConn,
+		Auth:     &auth.Authentication{},
 	})
 
 	setupRoles()

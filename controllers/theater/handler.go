@@ -10,6 +10,7 @@ import (
 // GetTheaterInfoByID ...
 func GetTheaterInfoByID(c *gin.Context) {
 	theaterID := c.Param("theater_id")
+
 	theater, err := models.GetTheaterByID(theaterID)
 
 	if err != nil {
@@ -17,5 +18,7 @@ func GetTheaterInfoByID(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, theater)
+	display := Display{Theater: theater}
+
+	c.JSON(200, display)
 }

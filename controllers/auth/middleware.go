@@ -1,4 +1,4 @@
-package controller
+package auth
 
 import (
 	"cinema-admin/models"
@@ -52,7 +52,7 @@ func VerifyJWTToken(c *gin.Context) {
 	token := c.Request.Header.Get("Authorization")
 	if token == "" {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
-			"message": "Token can not be null",
+			"message": "Unauthorized",
 		})
 		return
 	}
@@ -60,7 +60,7 @@ func VerifyJWTToken(c *gin.Context) {
 	userID, _, err := jwt.VerificationToken(rawToken)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
-			"message": "Token is in valid",
+			"message": "Unauthorized",
 		})
 		return
 	}
@@ -71,5 +71,22 @@ func VerifyJWTToken(c *gin.Context) {
 
 //CheckAPIKey ...
 func CheckAPIKey(c *gin.Context) {
+	key := c.Request.Header.Get("api-key")
+
+	if key == "" {
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+			"message": "Unauthorized",
+		})
+		return
+	}
+
+	_, err := models.GetAPIKeyByKey(key)
+	if err != nil {
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
+			"message": "Unauthorized",
+		})
+		return
+	}
+
 	c.Next()
 }

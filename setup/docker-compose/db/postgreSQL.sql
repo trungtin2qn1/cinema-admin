@@ -168,3 +168,18 @@ CREATE TABLE payments (
     ticket_id bigint,
     foreign key (ticket_id) references tickets(id)
 );
+
+--Create table api_keys
+--Drop table api_keys
+drop table if exists api_keys;
+drop sequence if exists api_keys_id_seq;
+CREATE SEQUENCE api_keys_id_seq;
+
+CREATE TABLE api_keys (
+    id bigint NOT NULL DEFAULT next_id('api_keys_id_seq') primary key,
+    created_at timestamp,
+    updated_at timestamp,
+    deleted_at timestamp,
+    value text,
+    type text
+);

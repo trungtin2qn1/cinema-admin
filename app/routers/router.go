@@ -41,8 +41,6 @@ func SetupRouter(mux *http.ServeMux) *gin.Engine {
 			auth.Use(controllerAuth.VerifyJWTToken)
 			auth.GET("/theater/:theater_id", controllerTheater.GetTheaterInfoByID)
 			auth.GET("/movie/:movie_id", controllerMovie.GetMovieInfoByID)
-			auth.GET("/theater/:theater_id/movie/:movie_id/movie-sessions",
-				controllerMovieSession.GetMovieSessionsByTheaterIDAndMovieID)
 			auth.GET("/theater/:theater_id/movie-sessions",
 				controllerMovieSession.GetMovieSessionsByTheaterID)
 			auth.POST("/ticket", controllerTicket.BookTicketAuth)
@@ -53,8 +51,6 @@ func SetupRouter(mux *http.ServeMux) *gin.Engine {
 			public.Use(controllerAuth.CheckAPIKey)
 			public.GET("/theater/:theater_id", controllerTheater.GetTheaterInfoByID)
 			public.GET("/movie/:theater_id", controllerMovie.GetMovieInfoByID)
-			public.GET("/theater/:theater_id/movie/:movie_id/movie-sessions",
-				controllerMovieSession.GetMovieSessionsByTheaterIDAndMovieID)
 			public.GET("/theater/:theater_id/movie-sessions",
 				controllerMovieSession.GetMovieSessionsByTheaterID)
 			public.POST("/ticket", controllerTicket.BookTicketService)

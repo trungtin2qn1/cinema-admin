@@ -18,9 +18,9 @@ type AdminUser struct {
 	Username  string `json:"username,omitempty"`
 	Role      string `json:"role,omitempty"`
 	LastLogin *time.Time
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	DeletedAt *time.Time
+	CreatedAt time.Time  `json:"created_at,omitempty"`
+	UpdatedAt time.Time  `json:"-"`
+	DeletedAt *time.Time `json:"-"`
 }
 
 type enumRole struct {
