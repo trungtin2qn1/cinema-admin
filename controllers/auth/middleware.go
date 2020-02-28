@@ -4,6 +4,7 @@ import (
 	"cinema-admin/models"
 	"cinema-admin/utils/jwt"
 	"fmt"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -59,6 +60,7 @@ func VerifyJWTToken(c *gin.Context) {
 	rawToken := string(token[len("Tin "):])
 	userID, _, err := jwt.VerificationToken(rawToken)
 	if err != nil {
+		log.Println("err:", err)
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 			"message": "Unauthorized",
 		})
@@ -80,7 +82,7 @@ func CheckAPIKey(c *gin.Context) {
 		return
 	}
 
-	_, err := models.GetAPIKeyByKey(key)
+	serviceKey, err := models.GetAPIKeyByKey(key)
 	if err != nil {
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 			"message": "Unauthorized",
@@ -88,5 +90,6 @@ func CheckAPIKey(c *gin.Context) {
 		return
 	}
 
+	c.Set("service-key-id", serviceKey.ID)
 	c.Next()
 }

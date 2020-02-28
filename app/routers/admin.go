@@ -33,6 +33,7 @@ func SetupAdmin() (*admin.Admin, *http.ServeMux) {
 	services.SetupTicketManagementResource(Admin)
 	services.SetupConsumerManagementResource(Admin)
 	services.SetupPaymentManagementResource(Admin)
+	services.SetupPaymentPartnerManagementResource(Admin)
 
 	// Setup theme
 	assetFS := bindatafs.AssetFS

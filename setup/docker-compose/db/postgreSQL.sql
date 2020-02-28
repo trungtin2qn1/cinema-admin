@@ -153,22 +153,6 @@ CREATE TABLE tickets (
     foreign key (movie_session_in_theater_id) references movie_session_in_theaters(id)
 );
 
---Create table payments
---Drop table payments
-drop table if exists payments;
-drop sequence if exists payments_id_seq;
-CREATE SEQUENCE payments_id_seq;
-
-CREATE TABLE payments (
-    id bigint NOT NULL DEFAULT next_id('payments_id_seq') primary key,
-    created_at timestamp,
-    updated_at timestamp,
-    deleted_at timestamp,
-    amount integer,
-    ticket_id bigint,
-    foreign key (ticket_id) references tickets(id)
-);
-
 --Create table api_keys
 --Drop table api_keys
 drop table if exists api_keys;
@@ -182,4 +166,39 @@ CREATE TABLE api_keys (
     deleted_at timestamp,
     value text,
     type text
+);
+
+--Create table payment_partners
+--Drop table payment_partners
+drop table if exists payment_partners;
+drop sequence if exists payment_partners_id_seq;
+CREATE SEQUENCE payment_partners_id_seq;
+
+CREATE TABLE payment_partners (
+    id bigint NOT NULL DEFAULT next_id('payment_partners_id_seq') primary key,
+    created_at timestamp,
+    updated_at timestamp,
+    deleted_at timestamp,
+    name text,
+    api_key_id bigint,
+    foreign key (api_key_id) references api_keys(id),
+    type integer
+);
+
+--Create table payments
+--Drop table payments
+drop table if exists payments;
+drop sequence if exists payments_id_seq;
+CREATE SEQUENCE payments_id_seq;
+
+CREATE TABLE payments (
+    id bigint NOT NULL DEFAULT next_id('payments_id_seq') primary key,
+    created_at timestamp,
+    updated_at timestamp,
+    deleted_at timestamp,
+    amount integer,
+    ticket_id bigint,
+    foreign key (ticket_id) references tickets(id),
+    payment_partner_id bigint,
+    foreign key (payment_partner_id) references payment_partners(id)
 );

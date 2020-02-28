@@ -43,7 +43,7 @@ func SetupRouter(mux *http.ServeMux) *gin.Engine {
 			auth.GET("/movie/:movie_id", controllerMovie.GetMovieInfoByID)
 			auth.GET("/theater/:theater_id/movie-sessions",
 				controllerMovieSession.GetMovieSessionsByTheaterID)
-			auth.POST("/ticket", controllerTicket.BookTicketAuth)
+			auth.POST("/ticket", controllerTicket.BookTicket)
 		}
 
 		public := api.Group("/public")
@@ -53,7 +53,7 @@ func SetupRouter(mux *http.ServeMux) *gin.Engine {
 			public.GET("/movie/:theater_id", controllerMovie.GetMovieInfoByID)
 			public.GET("/theater/:theater_id/movie-sessions",
 				controllerMovieSession.GetMovieSessionsByTheaterID)
-			public.POST("/ticket", controllerTicket.BookTicketService)
+			public.POST("/ticket", controllerTicket.BookTicket)
 			public.POST("/check-out", controllerPayment.CheckOut)
 		}
 	}

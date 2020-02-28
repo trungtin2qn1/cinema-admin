@@ -2,6 +2,7 @@ package models
 
 import (
 	"cinema-admin/db"
+	"errors"
 	"time"
 )
 
@@ -37,6 +38,39 @@ func CreateTicket(numberSeat string,
 		MovieSessionInTheaterID: movieSessionInTheaterID,
 		CustomerID:              customerID,
 	}
+
 	dbConn = dbConn.Create(ticket)
 	return ticket, dbConn.Error
+}
+
+// GetTicketByID ...
+func GetTicketByID(id string) (Ticket, error) {
+	dbConn := db.GetDB()
+
+	ticket := Ticket{}
+
+	res := dbConn.Where("id = ?", id).Find(&ticket)
+	if res.Error != nil {
+		return ticket, errors.New("Data or data type is invalid")
+	}
+	return ticket, nil
+}
+
+// UpdateWithNewTicketValue ...
+func (ticket *Ticket) UpdateWithNewTicketValue(newTicket Ticket) error {
+	dbConn := db.GetDB()
+
+	res := dbConn.First(&ticket)
+
+	if res.Error != nil {
+		return res.Error
+	}
+
+	newTicket.ID = ticket.ID
+
+	*ticket = newTicket
+
+	res = dbConn.Save(&newTicket)
+
+	return res.Error
 }
