@@ -52,7 +52,6 @@ var InitAdmin = &gormigrate.Migration{
 		return tx.Save(&usr).Error
 	},
 	Rollback: func(tx *gorm.DB) error {
-		go utils.LogErrToFile(err.Error())
 		return tx.DropTable("admin_users").Error
 	},
 }
