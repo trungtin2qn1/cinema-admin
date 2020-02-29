@@ -14,6 +14,11 @@ const (
 func openFile() (*os.File, error) {
 	t := time.Now()
 	temp := t.Format(layoutISO)
+	temp = "logs/" + temp + ".logs"
+	log.Println("temp:", temp)
+	if _, err := os.Stat("logs"); os.IsNotExist(err) {
+		os.Mkdir("logs", os.ModePerm)
+	}
 	res := temp
 	i := 0
 	for {
