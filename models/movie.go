@@ -10,18 +10,21 @@ import (
 
 //Movie ...
 type Movie struct {
-	ID          string     `json:"id,omitempty"`
-	CreatedAt   time.Time  `json:"created_at,omitempty"`
-	UpdatedAt   time.Time  `json:"-"`
-	DeletedAt   *time.Time `json:"-"`
-	Name        string     `json:"name,omitempty"`
-	Description string     `json:"description,omitempty"`
-	Image       string     `json:"image,omitempty"`
-	Trailer     string     `json:"trailer,omitempty"`
-	StartedAt   *time.Time `json:"started_at,omitempty"`
-	Duration    int        `json:"duration,omitempty"`
-	Rating      float32    `json:"rating,omitempty"`
-	Type        int        `json:"type,omitempty"`
+	ID             string     `json:"id,omitempty"`
+	CreatedAt      time.Time  `json:"created_at,omitempty"`
+	UpdatedAt      time.Time  `json:"-"`
+	DeletedAt      *time.Time `json:"-"`
+	Name           string     `json:"name,omitempty"`
+	Description    string     `json:"description,omitempty"`
+	Image          string     `json:"image,omitempty"`
+	Trailer        string     `json:"trailer,omitempty"`
+	StartedAt      *time.Time `json:"started_at,omitempty"`
+	Duration       int        `json:"duration,omitempty"`
+	Rating         float32    `json:"rating,omitempty"`
+	Views          int        `json:"views,omitempty"`
+	Type           int        `json:"type,omitempty"`
+	ManualPoint    int        `json:"manual_point,omitempty"`
+	AlgorithmPoint int        `json:"algorithm_point,omitempty"`
 }
 
 // GetMovieByID ...

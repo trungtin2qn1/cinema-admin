@@ -73,6 +73,9 @@ CREATE TABLE movies (
     started_at timestamp,
     duration integer,
     rating float,
+    views integer,
+    manual_point integer,
+    algorithm_point integer,
     type integer
 );
 
