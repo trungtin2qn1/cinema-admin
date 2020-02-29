@@ -30,6 +30,7 @@ func GetMovieSessionsByTheaterIDAndMovieID(theaterID,
 	dateTime, err := utils.ConvertStringToTime(date)
 
 	if err != nil {
+		go utils.LogErrToFile(err.Error())
 		return movieSessions, errors.New("Server is busy")
 	}
 
@@ -43,6 +44,7 @@ func GetMovieSessionsByTheaterIDAndMovieID(theaterID,
 
 	log.Println("movieSessions:", movieSessions)
 	if res.Error != nil {
+		go utils.LogErrToFile(res.Error.Error())
 		return movieSessions, errors.New("Data or data type is invalid")
 	}
 	return movieSessions, nil
@@ -57,6 +59,7 @@ func GetMovieSessionsByTheaterID(theaterID,
 	dateTime, err := utils.ConvertStringToTime(date)
 
 	if err != nil {
+		go utils.LogErrToFile(err.Error())
 		return movieSessions, errors.New("Server is busy")
 	}
 
@@ -67,6 +70,7 @@ func GetMovieSessionsByTheaterID(theaterID,
 			dateTime, dateAfterTime).
 		Find(&movieSessions)
 	if res.Error != nil {
+		go utils.LogErrToFile(res.Error.Error())
 		return movieSessions, errors.New("Data or data type is invalid")
 	}
 	return movieSessions, nil

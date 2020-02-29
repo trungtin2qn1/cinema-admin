@@ -2,6 +2,7 @@ package models
 
 import (
 	"cinema-admin/db"
+	"cinema-admin/utils"
 	"errors"
 	"time"
 )
@@ -25,6 +26,7 @@ func GetPaymentPartnerByID(id string) (PaymentPartner, error) {
 
 	res := dbConn.Where("id = ?", id).Find(&paymentPartner)
 	if res.Error != nil {
+		go utils.LogErrToFile(res.Error.Error())
 		return paymentPartner, errors.New("Data or data type is invalid")
 	}
 	return paymentPartner, nil
@@ -38,6 +40,7 @@ func GetPaymentPartnerByAPIKeyID(apiKeyID string) (PaymentPartner, error) {
 
 	res := dbConn.Where("api_key_id = ?", apiKeyID).Find(&paymentPartner)
 	if res.Error != nil {
+		go utils.LogErrToFile(res.Error.Error())
 		return paymentPartner, errors.New("Data or data type is invalid")
 	}
 	return paymentPartner, nil

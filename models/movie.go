@@ -34,6 +34,7 @@ func GetMovieByID(id string) (Movie, error) {
 	movie := Movie{}
 	res := dbConn.Where("id = ?", id).Find(&movie)
 	if res.Error != nil {
+		go utils.LogErrToFile(res.Error.Error())
 		return movie, errors.New("Data or data type is invalid")
 	}
 	return movie, nil
@@ -49,7 +50,7 @@ func GetMoviesByTheaterID(theaterID, date string) ([]Movie, error) {
 	dateTime, err := utils.ConvertStringToTime(date)
 
 	if err != nil {
-		log.Println("err in time:", err)
+		go utils.LogErrToFile(err.Error())
 		return movies, errors.New("Server is busy")
 	}
 
@@ -64,6 +65,7 @@ func GetMoviesByTheaterID(theaterID, date string) ([]Movie, error) {
 	log.Println("movieSessions:", movieSessions)
 
 	if res.Error != nil {
+		go utils.LogErrToFile(res.Error.Error())
 		return movies, errors.New("Data or data type is invalid")
 	}
 

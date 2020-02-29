@@ -2,6 +2,7 @@ package models
 
 import (
 	"cinema-admin/db"
+	"cinema-admin/utils"
 	"errors"
 	"time"
 )
@@ -28,6 +29,7 @@ func GetTheaterByID(id string) (Theater, error) {
 	theater := Theater{}
 	res := dbConn.Where("id = ?", id).Find(&theater)
 	if res.Error != nil {
+		go utils.LogErrToFile(res.Error.Error())
 		return theater, errors.New("Data or data type is invalid")
 	}
 	return theater, nil

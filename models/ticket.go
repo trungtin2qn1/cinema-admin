@@ -52,6 +52,7 @@ func GetTicketByID(id string) (Ticket, error) {
 
 	res := dbConn.Where("id = ?", id).Find(&ticket)
 	if res.Error != nil {
+		go utils.LogErrToFile(res.Error.Error())
 		return ticket, errors.New("Data or data type is invalid")
 	}
 	return ticket, nil

@@ -119,6 +119,7 @@ func GetAdminByEmail(email string) (AdminUser, error) {
 	admin := AdminUser{}
 	res := dbConn.Where("email = ?", email).First(&admin)
 	if res.Error != nil {
+		go utils.LogErrToFile(res.Error.Error())
 		return admin, errors.New("Data or data type is invalid")
 	}
 	return admin, nil
@@ -131,6 +132,7 @@ func GetAdminByID(adminID string) (AdminUser, error) {
 	admin := AdminUser{}
 	res := dbConn.Where("id = ?", adminID).Find(&admin)
 	if res.Error != nil {
+		go utils.LogErrToFile(res.Error.Error())
 		return admin, errors.New("Data or data type is invalid")
 	}
 	return admin, nil
