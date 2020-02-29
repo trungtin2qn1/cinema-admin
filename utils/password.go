@@ -7,6 +7,7 @@ func Generate(s string) (string, error) {
 	saltedBytes := []byte(s)
 	hashedBytes, err := bcrypt.GenerateFromPassword(saltedBytes, bcrypt.DefaultCost)
 	if err != nil {
+		go LogErrToFile(err.Error())
 		return "", err
 	}
 
@@ -20,6 +21,7 @@ func Compare(hash string, s string) (bool, error) {
 	existing := []byte(hash)
 	err := bcrypt.CompareHashAndPassword(existing, incoming)
 	if err != nil {
+		go LogErrToFile(err.Error())
 		return false, err
 	}
 	return true, nil

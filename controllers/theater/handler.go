@@ -2,6 +2,7 @@ package theater
 
 import (
 	"cinema-admin/models"
+	"cinema-admin/utils"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -14,6 +15,7 @@ func GetTheaterInfoByID(c *gin.Context) {
 	theater, err := models.GetTheaterByID(theaterID)
 
 	if err != nil {
+		go utils.LogErrToFile(err.Error())
 		c.JSON(http.StatusNotAcceptable, "Can't find theater")
 		return
 	}

@@ -9,6 +9,7 @@ import (
 	controllerPayment "cinema-admin/controllers/payment"
 	controllerTheater "cinema-admin/controllers/theater"
 	controllerTicket "cinema-admin/controllers/ticket"
+	"cinema-admin/utils"
 	"html/template"
 	"net/http"
 
@@ -67,6 +68,7 @@ func setViewLogin(r *gin.Engine) *gin.Engine {
 	lfs.RegisterPath("./template/")
 	logintpl, err := lfs.Asset("login.html")
 	if err != nil {
+		go utils.LogErrToFile(err.Error())
 		logrus.WithError(err).Fatal("Unable to find HTML template for login page in admin")
 	}
 	r.SetHTMLTemplate(template.Must(template.New("login.html").Parse(string(logintpl))))

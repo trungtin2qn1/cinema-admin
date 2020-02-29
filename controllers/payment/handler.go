@@ -2,6 +2,7 @@ package payment
 
 import (
 	"cinema-admin/models"
+	"cinema-admin/utils"
 	"fmt"
 	"net/http"
 
@@ -14,12 +15,14 @@ func CheckOut(c *gin.Context) {
 	err := c.ShouldBind(&paymentReq)
 
 	if err != nil {
+		go utils.LogErrToFile(err.Error())
 		c.JSON(http.StatusBadRequest, "Data or data type is invalid")
 		return
 	}
 
 	if paymentReq.TicketID == nil {
 		if err != nil {
+			go utils.LogErrToFile(err.Error())
 			c.JSON(http.StatusBadRequest, "Data or data type is invalid")
 			return
 		}
@@ -31,6 +34,7 @@ func CheckOut(c *gin.Context) {
 	paymentPartner, err := models.GetPaymentPartnerByAPIKeyID(serviceKeyID)
 
 	if err != nil {
+		go utils.LogErrToFile(err.Error())
 		c.JSON(http.StatusInternalServerError, "Server is busy")
 		return
 	}
@@ -38,6 +42,7 @@ func CheckOut(c *gin.Context) {
 	ticket, err := models.GetTicketByID(*paymentReq.TicketID)
 
 	if err != nil {
+		go utils.LogErrToFile(err.Error())
 		c.JSON(http.StatusInternalServerError, "Server is busy")
 		return
 	}
@@ -47,6 +52,7 @@ func CheckOut(c *gin.Context) {
 		&paymentPartner.ID)
 
 	if err != nil {
+		go utils.LogErrToFile(err.Error())
 		c.JSON(http.StatusInternalServerError, "Server is busy")
 		return
 	}
@@ -56,6 +62,7 @@ func CheckOut(c *gin.Context) {
 	err = ticket.UpdateWithNewTicketValue(newTicket)
 
 	if err != nil {
+		go utils.LogErrToFile(err.Error())
 		c.JSON(http.StatusInternalServerError, "Server is busy")
 		return
 	}

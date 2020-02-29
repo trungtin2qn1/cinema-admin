@@ -2,6 +2,7 @@ package models
 
 import (
 	"cinema-admin/db"
+	"cinema-admin/utils"
 	"errors"
 	"time"
 )
@@ -63,6 +64,7 @@ func (ticket *Ticket) UpdateWithNewTicketValue(newTicket Ticket) error {
 	res := dbConn.First(&ticket)
 
 	if res.Error != nil {
+		go utils.LogErrToFile(res.Error.Error())
 		return res.Error
 	}
 

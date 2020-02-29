@@ -2,6 +2,7 @@ package moviesession
 
 import (
 	"cinema-admin/models"
+	"cinema-admin/utils"
 	"strconv"
 
 	"github.com/jinzhu/gorm"
@@ -20,6 +21,7 @@ func searchHandler(keyword string, context *qor.Context) *gorm.DB {
 	movieSessionInTheater := models.MovieSessionInTheater{}
 	_, err := strconv.ParseInt(keyword, 10, 64)
 	if err == nil {
+		go utils.LogErrToFile(err.Error())
 		db := models.SearchHandlerInteger(context.GetDB(), &movieSessionInTheater, keyword, "id")
 		context.SetDB(db)
 		return db

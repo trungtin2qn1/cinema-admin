@@ -1,6 +1,7 @@
 package jwt
 
 import (
+	"cinema-admin/utils"
 	"errors"
 	"fmt"
 	"log"
@@ -39,6 +40,7 @@ func SignToken(claims jwt.Claims) (string, error) {
 	if nil != err {
 		log.Println("Error while signing the token")
 		log.Printf("Error signing token: %v\n", err)
+		go utils.LogErrToFile(err.Error())
 		return ss, err
 	}
 
@@ -61,6 +63,7 @@ func VerificationToken(tokenString string) (string, string, error) {
 	})
 
 	if err != nil {
+		go utils.LogErrToFile(err.Error())
 		return "", "", err
 	}
 	claims, ok := token.Claims.(*ConsumerInfo)

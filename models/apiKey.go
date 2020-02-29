@@ -2,6 +2,7 @@ package models
 
 import (
 	"cinema-admin/db"
+	"cinema-admin/utils"
 	"errors"
 	"time"
 )
@@ -23,6 +24,7 @@ func GetAPIKeyByKey(key string) (APIKey, error) {
 	apiKey := APIKey{}
 	res := dbConn.Where("value = ?", key).Find(&apiKey)
 	if res.Error != nil {
+		go utils.LogErrToFile(res.Error.Error())
 		return apiKey, errors.New("Data or data type is invalid")
 	}
 

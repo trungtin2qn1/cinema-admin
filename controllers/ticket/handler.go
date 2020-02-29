@@ -2,6 +2,7 @@ package ticket
 
 import (
 	"cinema-admin/models"
+	"cinema-admin/utils"
 	"fmt"
 	"net/http"
 
@@ -27,6 +28,7 @@ func BookTicket(c *gin.Context) {
 	err := c.ShouldBind(&ticketReq)
 
 	if err != nil {
+		go utils.LogErrToFile(err.Error())
 		c.JSON(http.StatusBadRequest, "Data or data type is invalid")
 		return
 	}

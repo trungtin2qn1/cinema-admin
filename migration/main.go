@@ -3,6 +3,7 @@ package main
 import (
 	"cinema-admin/db"
 	"cinema-admin/migration/models"
+	"cinema-admin/utils"
 	"log"
 
 	_ "github.com/jinzhu/gorm/dialects/postgres"
@@ -21,7 +22,7 @@ func main() {
 	})
 
 	if err := m.Migrate(); err != nil {
-		log.Fatalf("Could not migrate: %v", err)
+		go utils.LogErrToFile(err.Error())
 	}
 	log.Printf("Migration did run successfully")
 

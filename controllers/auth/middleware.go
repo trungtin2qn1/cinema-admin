@@ -2,9 +2,9 @@ package auth
 
 import (
 	"cinema-admin/models"
+	"cinema-admin/utils"
 	"cinema-admin/utils/jwt"
 	"fmt"
-	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -24,12 +24,14 @@ func SetCookie(c *gin.Context, adminID string) {
 func CheckCookie(c *gin.Context) {
 	cookie, err := c.Request.Cookie("admin_id")
 	if err != nil || cookie == nil || cookie.Value == "" {
+		go utils.LogErrToFile(err.Error())
 		c.Redirect(http.StatusSeeOther, "/login")
 		return
 	}
 
 	_, err = models.GetAdminByID(cookie.Value)
 	if err != nil {
+		go utils.LogErrToFile(err.Error())
 		c.Redirect(http.StatusSeeOther, "/login")
 		return
 	}
@@ -41,6 +43,7 @@ func CheckCookie(c *gin.Context) {
 func DeleteCookie(c *gin.Context) {
 	cookie, err := c.Request.Cookie("admin_id")
 	if err != nil || cookie == nil {
+		go utils.LogErrToFile(err.Error())
 		c.AbortWithStatus(http.StatusNotFound)
 	}
 
@@ -60,7 +63,7 @@ func VerifyJWTToken(c *gin.Context) {
 	rawToken := string(token[len("Tin "):])
 	userID, _, err := jwt.VerificationToken(rawToken)
 	if err != nil {
-		log.Println("err:", err)
+		go utils.LogErrToFile(err.Error())
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 			"message": "Unauthorized",
 		})
@@ -84,6 +87,7 @@ func CheckAPIKey(c *gin.Context) {
 
 	serviceKey, err := models.GetAPIKeyByKey(key)
 	if err != nil {
+		go utils.LogErrToFile(err.Error())
 		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{
 			"message": "Unauthorized",
 		})

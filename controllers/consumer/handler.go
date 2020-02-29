@@ -2,6 +2,7 @@ package consumer
 
 import (
 	"cinema-admin/models"
+	"cinema-admin/utils"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -12,6 +13,7 @@ func Login(c *gin.Context) {
 	authReq := models.AuthReq{}
 	err := c.ShouldBind(&authReq)
 	if err != nil {
+		go utils.LogErrToFile(err.Error())
 		c.JSON(http.StatusBadRequest, gin.H{
 			"message": "Data or data type is invalid",
 		})
@@ -21,6 +23,7 @@ func Login(c *gin.Context) {
 	consumer, err := models.Login(authReq.Email, authReq.Password)
 
 	if err != nil {
+		go utils.LogErrToFile(err.Error())
 		c.JSON(http.StatusInternalServerError, gin.H{
 			"message": "Server is busy",
 		})

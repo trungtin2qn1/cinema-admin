@@ -29,7 +29,7 @@ func Init() {
 	fmt.Println(dbinfo)
 	db, err = ConnectDB(dbinfo)
 	if err != nil {
-		fmt.Println(1)
+		go utils.LogErrToFile(err.Error())
 		log.Fatal(err)
 	}
 	fmt.Println("Success")
@@ -39,6 +39,7 @@ func Init() {
 func ConnectDB(dbinfo string) (*gorm.DB, error) {
 	db, err := gorm.Open("postgres", dbinfo)
 	if err != nil {
+		go utils.LogErrToFile(err.Error())
 		log.Fatal(err)
 		return nil, err
 	}

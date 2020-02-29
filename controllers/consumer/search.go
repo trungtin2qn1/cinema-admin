@@ -2,6 +2,7 @@ package consumer
 
 import (
 	"cinema-admin/models"
+	"cinema-admin/utils"
 	"strconv"
 
 	"github.com/jinzhu/gorm"
@@ -20,6 +21,7 @@ func searchHandler(keyword string, context *qor.Context) *gorm.DB {
 	consumer := models.Consumer{}
 	_, err := strconv.ParseInt(keyword, 10, 64)
 	if err == nil {
+		go utils.LogErrToFile(err.Error())
 		db := models.SearchHandlerInteger(context.GetDB(), &consumer, keyword, "id")
 		context.SetDB(db)
 		return db

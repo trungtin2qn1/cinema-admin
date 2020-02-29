@@ -2,6 +2,7 @@ package adminuser
 
 import (
 	"cinema-admin/models"
+	"cinema-admin/utils"
 
 	"github.com/qor/admin"
 	"github.com/qor/qor"
@@ -21,6 +22,7 @@ func setUpPasswordHandler(usr *admin.Resource) {
 				if np := values[0]; np != "" {
 					pwd, err := bcrypt.GenerateFromPassword([]byte(np), bcrypt.DefaultCost)
 					if err != nil {
+						go utils.LogErrToFile(err.Error())
 						context.DB.AddError(validations.NewError(usr, "Password", "Can't encrypt password")) // nolint: gosec,errcheck
 						return
 					}

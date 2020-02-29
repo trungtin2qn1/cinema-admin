@@ -19,5 +19,6 @@ local-db:
 	"Ignore error warning. Setup db success"
 	
 setup-package:
+	mkdir logs
 	go get github.com/Masterminds/glide
 	glide install

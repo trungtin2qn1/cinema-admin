@@ -34,6 +34,7 @@ func (Authentication) LogoutURL(context *admin.Context) string {
 func (Authentication) GetCurrentUser(context *admin.Context) qor.CurrentUser {
 	cookie, err := context.Request.Cookie("admin_id")
 	if err != nil || cookie == nil || cookie.Value == "" {
+		go utils.LogErrToFile(err.Error())
 		return nil
 	}
 
@@ -41,6 +42,7 @@ func (Authentication) GetCurrentUser(context *admin.Context) qor.CurrentUser {
 
 	admin, err := models.GetAdminByID(cookie.Value)
 	if err != nil {
+		go utils.LogErrToFile(err.Error())
 		return nil
 	}
 	return admin
@@ -68,6 +70,7 @@ func PostLogin(c *gin.Context) {
 
 	err := c.ShouldBind(&auth)
 	if err != nil {
+		go utils.LogErrToFile(err.Error())
 		log.Println("err:", err)
 	}
 
@@ -83,7 +86,7 @@ func PostLogin(c *gin.Context) {
 	log.Println("admin:", admin)
 
 	if err != nil {
-		fmt.Println(auth.Email)
+		go utils.LogErrToFile(err.Error())
 		c.JSON(http.StatusNotAcceptable, err.Error())
 		return
 	}

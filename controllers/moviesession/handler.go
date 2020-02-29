@@ -2,6 +2,7 @@ package moviesession
 
 import (
 	"cinema-admin/models"
+	"cinema-admin/utils"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,6 +17,7 @@ func GetMovieSessionsByTheaterID(c *gin.Context) {
 	movies, err := models.GetMoviesByTheaterID(theaterID, date)
 
 	if err != nil {
+		go utils.LogErrToFile(err.Error())
 		c.JSON(http.StatusNotAcceptable, gin.H{
 			"message": "Can't find movies by theater id",
 		})
@@ -31,6 +33,7 @@ func GetMovieSessionsByTheaterID(c *gin.Context) {
 		movieSessions, err := models.GetMovieSessionsByTheaterIDAndMovieID(theaterID, movie.ID, date)
 
 		if err != nil {
+			go utils.LogErrToFile(err.Error())
 			continue
 		}
 

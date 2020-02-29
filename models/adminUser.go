@@ -46,6 +46,7 @@ func (adminUser *AdminUser) BeforeSave() error {
 		var err error
 		adminUser.Password, err = utils.Generate(adminUser.Password)
 		if err != nil {
+			go utils.LogErrToFile(err.Error())
 			return err
 		}
 	}
@@ -66,10 +67,12 @@ func CreateAdminUser(email string, password string) (AdminUser, error) {
 	adminUser.Password, err = utils.Generate(password)
 	adminUser.Username = "Admin"
 	if err != nil {
+		go utils.LogErrToFile(err.Error())
 		return AdminUser{}, err
 	}
 	err = adminUser.create()
 	if err != nil {
+		go utils.LogErrToFile(err.Error())
 		return AdminUser{}, errors.New("Can't create new resource to database")
 	}
 	return adminUser, nil

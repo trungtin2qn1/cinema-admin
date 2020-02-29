@@ -2,6 +2,7 @@ package models
 
 import (
 	"cinema-admin/models"
+	"cinema-admin/utils"
 	"time"
 
 	"github.com/jinzhu/gorm"
@@ -30,10 +31,12 @@ var InitAdmin = &gormigrate.Migration{
 		}
 
 		if err = tx.CreateTable(&adminUser{}).Error; err != nil {
+			go utils.LogErrToFile(err.Error())
 			return err
 		}
 		var pwd []byte
 		if pwd, err = bcrypt.GenerateFromPassword([]byte("1234567"), bcrypt.DefaultCost); err != nil {
+			go utils.LogErrToFile(err.Error())
 			return err
 		}
 
@@ -49,6 +52,7 @@ var InitAdmin = &gormigrate.Migration{
 		return tx.Save(&usr).Error
 	},
 	Rollback: func(tx *gorm.DB) error {
+		go utils.LogErrToFile(err.Error())
 		return tx.DropTable("admin_users").Error
 	},
 }
