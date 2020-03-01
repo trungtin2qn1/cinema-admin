@@ -14,12 +14,6 @@ services:
     restart: always
     ports: 
       - "5432:5432"
-    networks:
-      - test_net
-
-networks:
-  test_net:
-    driver: bridge
 
 volumes:
   database-data: # named volumes can be managed easier using docker-compos

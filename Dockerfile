@@ -10,5 +10,8 @@ FROM alpine:latest
 RUN apk --no-cache add ca-certificates
 WORKDIR /
 COPY --from=builder /go/src/cinema-admin/cinema-admin ./cinema-admin
+COPY --from=builder /go/src/cinema-admin/keys ./keys
+COPY --from=builder /go/src/cinema-admin/template ./template
+COPY --from=builder /go/src/cinema-admin/admin ./admin
 CMD ["/cinema-admin"]
 EXPOSE 4000 

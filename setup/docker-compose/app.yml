@@ -3,12 +3,12 @@ services:
   app:
     image: cinema-admin
     # restart: always
-    container_name: cinema-admin_postgres
+    container_name: cinema-admin_app
+    environment:
+      - POSTGREST_DB_HOST=database
+      - POSTGREST_DB_PORT=5432
+      - POSTGREST_DB_USER=user
+      - POSTGREST_DB_PASSWORD=123456
+      - POSTGREST_DB_NAME=cinema-admin
     ports:
       - "4000:4000"
-    networks:
-      - test_net
-
-networks:
-  test_net:
-    driver: bridge

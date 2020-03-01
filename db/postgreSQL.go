@@ -2,6 +2,7 @@ package db
 
 import (
 	"cinema-admin/utils"
+	"database/sql"
 	"fmt"
 	"log"
 
@@ -11,7 +12,7 @@ import (
 var db *gorm.DB
 
 //Init ...
-func Init() {
+func Init(sqlDB *sql.DB) {
 	dbUser := utils.GetEnv("POSTGREST_DB_USER", "user")
 	dbPassword := utils.GetEnv("POSTGREST_DB_PASSWORD", "123456")
 	dbName := utils.GetEnv("POSTGREST_DB_NAME", "cinema-admin")
@@ -27,7 +28,11 @@ func Init() {
 
 	var err error
 	fmt.Println(dbinfo)
-	db, err = ConnectDB(dbinfo)
+	if sqlDB == nil {
+		db, err = ConnectDB(dbinfo)
+	} else {
+		db, err = gorm.Open("postgres", sqlDB)
+	}
 	if err != nil {
 		log.Fatal(err)
 	}

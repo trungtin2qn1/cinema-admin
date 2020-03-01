@@ -11,7 +11,7 @@ import (
 func main() {
 
 	// Connect to database
-	db.Init()
+	db.Init(nil)
 	defer db.CloseDB()
 
 	// Load keys for jwt
