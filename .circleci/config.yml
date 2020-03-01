@@ -37,10 +37,18 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "f5:0c:d0:f7:97:32:ff:2c:56:60:0d:ff:ee:f4:b3:23"
-      - run: ssh -vv -o "StrictHostKeyChecking=no" root@$VM_IP  
-      - run: cd cinema-admin
-      - run: docker-compose -f app.yml down
-      - run: docker-compose -f app.yml up -d
+      - run: ssh root@$VM_IP  
+      # - run: cd cinema-admin
+      # - run: docker-compose -f app.yml down
+      # - run: docker-compose -f app.yml up -d
+
+    #   - run: apk --update add openssh-client
+    #   - run: eval $(ssh-agent -s)
+    #   - run: cat deploy/deploy_key_prod | tr -d '\r' | ssh-add - > /dev/null
+    # - ssh-add -l
+    # - mkdir -p ~/.ssh
+    # - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    # - apk add socat
 
 workflows:
   version: 2
