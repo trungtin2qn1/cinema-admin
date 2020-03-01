@@ -22,3 +22,6 @@ setup-package:
 	mkdir logs
 	go get github.com/Masterminds/glide
 	glide install
+
+test:
+	go test -v ./...
