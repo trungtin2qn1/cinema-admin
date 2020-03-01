@@ -18,10 +18,7 @@ jobs:
       # - master
       # - circleci-project-setup
       # - dev
-    docker:
-      # specify the version
-      - image: circleci/golang:1.12
-
+    machine: true
     working_directory: /go/src/cinema-admin
     steps:
       - checkout
