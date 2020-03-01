@@ -13,5 +13,7 @@ COPY --from=builder /go/src/cinema-admin/cinema-admin ./cinema-admin
 COPY --from=builder /go/src/cinema-admin/keys ./keys
 COPY --from=builder /go/src/cinema-admin/template ./template
 COPY --from=builder /go/src/cinema-admin/admin ./admin
+COPY --from=builder /go/src/cinema-admin/app/views ./app/views
+COPY --from=builder /go/src/cinema-admin/vendor/github.com/qor ./vendor/github.com/qor
 CMD ["/cinema-admin"]
 EXPOSE 4000 
