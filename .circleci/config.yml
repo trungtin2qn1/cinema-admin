@@ -15,9 +15,9 @@ jobs:
       - run: make test
 
   build:
-    branches:
-      only:
-        - master
+    # branches:
+    #   only:
+    #     - master
     working_directory: /go/src/cinema-admin
     docker:
       - image: docker:19.03.6-ce-git
