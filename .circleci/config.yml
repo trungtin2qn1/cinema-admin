@@ -47,3 +47,17 @@ jobs:
 
   #     - run: make setup-package
   #     - run: make test
+
+workflows:
+  version: 2
+  test:
+    jobs:
+      - test
+
+  build:
+    jobs:
+      - build
+
+  # deploy:
+  #   jobs:
+  #     - deploy
