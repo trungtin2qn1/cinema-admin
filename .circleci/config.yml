@@ -46,3 +46,9 @@ jobs:
 
   #     - run: make setup-package
   #     - run: make test
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build

@@ -11,4 +11,4 @@ RUN apk --no-cache add ca-certificates
 WORKDIR /
 COPY --from=builder /go/src/cinema-admin/cinema-admin ./cinema-admin
 CMD ["/cinema-admin"]
-EXPOSE 4000 
+EXPOSE 6000 
