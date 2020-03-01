@@ -37,8 +37,8 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "f5:0c:d0:f7:97:32:ff:2c:56:60:0d:ff:ee:f4:b3:23"
-             
-      - run: ssh -vv -o "StrictHostKeyChecking=no" root@$VM_IP ""./deploy_cinema_admin"
+
+      - run: ssh -vv -o "StrictHostKeyChecking=no" root@$VM_IP "./deploy_cinema_admin"
 
 workflows:
   version: 2
