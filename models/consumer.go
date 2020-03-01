@@ -4,6 +4,7 @@ import (
 	"cinema-admin/db"
 	"cinema-admin/utils"
 	"errors"
+	"log"
 	"time"
 )
 
@@ -28,6 +29,7 @@ func GetConsumerByEmail(email string) (Consumer, error) {
 	consumer := Consumer{}
 	res := dbConn.Where("email = ?", email).First(&consumer)
 	if res.Error != nil {
+		log.Println(res.Error)
 		go utils.LogErrToFile(res.Error.Error())
 		return consumer, errors.New("Data or data type is invalid")
 	}
@@ -42,6 +44,7 @@ func GetConsumerByID(id string) (Consumer, error) {
 	consumer := Consumer{}
 	res := dbConn.Where("id = ?", id).Find(&consumer)
 	if res.Error != nil {
+		log.Println(res.Error)
 		go utils.LogErrToFile(res.Error.Error())
 		return consumer, errors.New("Data or data type is invalid")
 	}

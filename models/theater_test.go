@@ -22,10 +22,9 @@ func TestGetTheaterByID(t *testing.T) {
 	mock.ExpectQuery(regexp.QuoteMeta(`SELECT * FROM "theaters" 
 		WHERE "theaters"."deleted_at" IS NULL AND ((id = $1))`)).
 		WithArgs("12").WillReturnRows(sqlmock.NewRows([]string{
-		"id", "name", "created_at", "updated_at", "deleted_at",
+		"id", "name",
 		"description", "state", "city", "district", "ward", "street",
-	}).AddRow("12", "name", "2002-07-01T13:50:05Z", "2002-07-01T13:50:05Z", nil,
-		"description",
+	}).AddRow("12", "name", "description",
 		"state", "city", "district", "ward", "street"))
 
 	wantTheater := Theater{
