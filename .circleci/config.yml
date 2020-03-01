@@ -32,19 +32,19 @@ jobs:
             echo "$DOCKERHUB_PASS" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             docker push $IMAGE_NAME:latest
   
-  deploy: 
-    # SSH server
-    # Pull image
-    # Run
-    branches:
-      only:
-        - master
-    -working_directory: /go/src/cinema-admin
-    steps:
-      - checkout
+  # deploy: 
+  #   # SSH server
+  #   # Pull image
+  #   # Run
+  #   branches:
+  #     only:
+  #       - master
+  #   -working_directory: /go/src/cinema-admin
+  #   steps:
+  #     - checkout
 
-      - run: make setup-package
-      - run: make test
+  #     - run: make setup-package
+  #     - run: make test
 
 workflows:
   version: 2
