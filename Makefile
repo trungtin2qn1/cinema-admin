@@ -25,3 +25,6 @@ setup-package:
 
 test:
 	go test -v ./...
+
+docker-image:
+	make build 
