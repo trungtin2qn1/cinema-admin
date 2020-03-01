@@ -20,7 +20,8 @@ jobs:
     #     - master
     working_directory: /go/src/cinema-admin
     docker:
-      - image: circleci/buildpack-deps:stretch
+      - image: circleci/golang:1.12
+      - image: docker:17.05.0-ce-git
     steps:
       # - checkout
       - setup_remote_docker
