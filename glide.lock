@@ -1,5 +1,5 @@
 hash: 92f26d1292115b3b480ae49b54f086d35956edf8f56d87c2ba8827e31c3a1fd4
-updated: 2020-02-29T10:57:41.520790906+07:00
+updated: 2020-03-01T23:54:28.549838382+07:00
 imports:
 - name: github.com/asaskevich/govalidator
   version: 475eaeb164960a651e97470412a7d3b0c5036105
@@ -122,4 +122,6 @@ imports:
   version: ff46dd7d2c0b00a58540e19ca3d3f5e370fa3607
 - name: gopkg.in/yaml.v2
   version: 53403b58ad1b561927d19068c655246f2db79d48
-testImports: []
+testImports:
+- name: github.com/DATA-DOG/go-sqlmock
+  version: 7d7fc89ac4d6e7994c74cf16a6cb774b0374f2f9
