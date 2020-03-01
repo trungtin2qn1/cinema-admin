@@ -2,8 +2,12 @@ version: '3'
 services:
   database:
     image: "postgres" # use latest official postgres version
+    # environment:
+    #   - POSTGRES_USER=user
+    #   - POSTGRES_PASSWORD=123456
+    #   - POSTGRES_DB=cinema-admin
     env_file:
-      - database.env # configure postgres
+     - database.env # configure postgres
     volumes:
       - database-data:/var/lib/postgresql/data/ # persist data even if container shuts down
     container_name: cinema-admin_postgres
@@ -12,4 +16,4 @@ services:
       - "5432:5432"
 
 volumes:
-  database-data: # named volumes can be managed easier using docker-compose
+  database-data: # named volumes can be managed easier using docker-compos

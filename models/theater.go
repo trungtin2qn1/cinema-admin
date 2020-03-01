@@ -4,6 +4,7 @@ import (
 	"cinema-admin/db"
 	"cinema-admin/utils"
 	"errors"
+	"log"
 	"time"
 )
 
@@ -26,9 +27,15 @@ type Theater struct {
 func GetTheaterByID(id string) (Theater, error) {
 	dbConn := db.GetDB()
 
+	log.Println("id = ", id)
+
 	theater := Theater{}
 	res := dbConn.Where("id = ?", id).Find(&theater)
+
+	log.Println("theater:", theater)
+
 	if res.Error != nil {
+		log.Println(res.Error)
 		go utils.LogErrToFile(res.Error.Error())
 		return theater, errors.New("Data or data type is invalid")
 	}
