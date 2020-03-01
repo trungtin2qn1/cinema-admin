@@ -29,23 +29,22 @@ jobs:
       # specify any bash command here prefixed with `run: `
       - run: make setup-package
       - run: make build
-      # - run:
   
-  # deploy: 
-  #   branches:
-  #     only:
-  #     - master
-  #     - circleci-project-setup
-  #   docker:
-  #     # specify the version
-  #     - image: circleci/golang:1.12
+  deploy: 
+    branches:
+      only:
+      - master
+      - circleci-project-setup
+    docker:
+      # specify the version
+      - image: circleci/golang:1.12
 
-  #   working_directory: /go/src/cinema-admin
-  #   steps:
-  #     - checkout
+    working_directory: /go/src/cinema-admin
+    steps:
+      - checkout
 
-  #     - run: make setup-package
-  #     - run: make test
+      - run: make setup-package
+      - run: make test
 
 workflows:
   version: 2
