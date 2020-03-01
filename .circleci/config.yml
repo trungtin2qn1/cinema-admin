@@ -1,10 +1,24 @@
 version: 2
 jobs:
+
+  test:
+    docker:
+      # specify the version
+      - image: circleci/golang:1.12
+
+    working_directory: /go/src/cinema-admin
+    steps:
+      - checkout
+
+      - run: make setup-package
+      - run: make test
+
   build:
     branches:
       only:
       - master
       - circleci-project-setup
+      - dev
     docker:
       # specify the version
       - image: circleci/golang:1.12
@@ -17,22 +31,6 @@ jobs:
       - run: make setup-package
       - run: make build
       # - run:
-      
-  test:
-    branches:
-      only:
-      - master
-      - circleci-project-setup
-    docker:
-      # specify the version
-      - image: circleci/golang:1.12
-
-    working_directory: /go/src/cinema-admin
-    steps:
-      - checkout
-
-      - run: make setup-package
-      - run: make test
   
   # deploy: 
   #   branches:
