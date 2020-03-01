@@ -30,7 +30,8 @@ jobs:
             docker push $IMAGE_NAME:latest
   
   deploy: 
-    -working_directory: /go/src/cinema-admin
+    docker:
+      - image: docker:17.05.0-ce-git
     steps:
       - checkout
       - add_ssh_keys:
