@@ -30,11 +30,11 @@ jobs:
       - run: make setup-package
       - run: make build
   
-  deployment: 
-    branches:
-      only:
-      - master
-      - circleci-project-setup
+  deploy: 
+    # branches:
+    #   only:
+    #   - master
+    #   - circleci-project-setup
     docker:
       # specify the version
       - image: circleci/golang:1.12
@@ -51,10 +51,11 @@ workflows:
   build-test-and-deploy:
     jobs:
       - test
-      - build:
-          requires:
-            - test
-      - deployment:
-          requires:
-            - build
-      
+      # - build:
+      #     requires:
+      #       - test
+      # - deployment:
+      #     requires:
+      #       - build
+      - build
+      - deploy
