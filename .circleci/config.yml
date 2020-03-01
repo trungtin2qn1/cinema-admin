@@ -23,9 +23,11 @@ jobs:
       - image: circleci/golang:1.12
       - image: docker:17.05.0-ce-git
     steps:
-      # - checkout
-      - setup_remote_docker
+      - checkout
+      - setup_remote_docker:   # (2)
+          docker_layer_caching: true # (3)
 
+      - run: make setup-package
       - run: docker build -t $IMAGE_NAME .
       - run:
           name: Publish Docker Image to Docker Hub
