@@ -30,7 +30,7 @@ jobs:
       - run: make setup-package
       - run: make build
   
-  deploy: 
+  deployment: 
     branches:
       only:
       - master
@@ -54,7 +54,7 @@ workflows:
       - build:
           requires:
             - test
-      - deploy:
+      - deployment:
           requires:
             - build
       
