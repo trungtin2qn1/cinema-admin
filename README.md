@@ -2,7 +2,7 @@
 
 ### Basic use:
 
-Truy cập vào website `https://trungtin2qn1.site` để sử dụng những tính năng cơ bản nhất của web
+Truy cập vào website `localhost:6000` để sử dụng những tính năng cơ bản nhất của web
 
 Tài khoản:
 
@@ -82,7 +82,7 @@ Chỉ tiến hành ở branch `master`
 
 Sử dụng prometheus và grafana cho việc monitor server
 
-Truy cập http://128.199.155.44:3000/ (grafana)
+Truy cập `localhost:3000/` (grafana)
 
 Tài khoản:
 
